@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
         min: 7,
         trim : true
     },
+    admin:{
+        type : Boolean,
+        default : false
+    },
     tokens: [{
         token: {
             type: String,
@@ -38,13 +42,18 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+// userSchema.methods.pubicProfile = async function (){
+//     const user = this
+//     const userObject = user.toObject()
+//      delete userObject.password
+//      delete userObject.tokens
+//     return userObject
+// }
+
 userSchema.methods.generateAuthToken = async function(){
     const user =this
-    console.log(user)
     const token = jwt.sign({_id : user._id.toString()},'helonewuser')
-   console.log(token)
     user.tokens = user.tokens.concat({token})
-    console.log(user.tokens)
     await user.save()
 
     return token
@@ -52,15 +61,12 @@ userSchema.methods.generateAuthToken = async function(){
 
 userSchema.statics.findByCredentials = async (email,password) => {
     const userlog = await user.findOne({email})
-    console.log("user",userlog);
     if(!userlog){
-        console.log('!userlog')
         throw new Error('Unable to login')
     }
     const isMatch = await bcrypt.compare(password ,userlog.password)
-
     if(!isMatch){
-        console.log('!isMatch')
+      
         throw new Error('Unable to login')
     }
     return userlog
