@@ -1,4 +1,5 @@
 const user = require('../models/login.model')
+const bcrypt = require('bcryptjs')
 
 const getAllUsers = (req,res)=>{
     user.find({},(err , data)=>{
@@ -9,7 +10,6 @@ const getAllUsers = (req,res)=>{
 }
 
 const register =async (req,res)=>{
-   // const {name,email,password} = req.body
    const newUser = new user(req.body)
    try{
        await newUser.save()
@@ -22,15 +22,10 @@ const register =async (req,res)=>{
 
 const logIn =async (req,res)=>{
   try{
-     // console.log('first try')
       const userlog = await user.findByCredentials(req.body.email,req.body.password);
-      //console.log("userlog" , userlog);
       const token = await userlog.generateAuthToken();
-      //console.log("token" , token);
       res.status(200).json({userlog  ,token})
-    //   : userlog.pubicProfile()
   }catch(e){
-   // console.log(e);
       res.status(404).send(e.message)
   }
 }
@@ -74,8 +69,15 @@ const deleteUserByAdmin = async(req,res)=>{
    })  
 }
 
-const toUpdate = (req,res)=>{
-    
+const toUpdate = async (req,res)=>{
+    const id = req.user._id
+    if(req.body.password !== undefined){
+        req.body.password = await bcrypt.hash(req.body.password , 8)
+    }
+    user.findByIdAndUpdate(id , req.body , {new:true,runValidators:true},(err , data)=>{
+       if(err) return res.status(404).send(err.message)
+        return res.status(200).send(data)
+    })
 }
 
 module.exports = {

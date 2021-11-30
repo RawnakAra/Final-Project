@@ -18,8 +18,9 @@ router.get('/',(req,res)=>{
     await userData.deleteUser(req,res)
 }).delete('/delete/:id',admin , async(req,res)=>{
     await userData.deleteUserByAdmin(req,res)
-}).put('/update/:id',(req,res)=>{
-    userData.toUpdate(req,res)
+}).put('/update',auth ,async(req,res)=>{
+    await userData.toUpdate(req,res)
 })
 
 module.exports = router
+
