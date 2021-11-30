@@ -34,6 +34,12 @@ const userSchema = new mongoose.Schema({
         type : Boolean,
         default : false
     },
+    comments:[{
+       comment :{
+           type : mongoose.Schema.Types.ObjectId,
+           ref:'comment'
+       }
+    }],
     tokens: [{
         token: {
             type: String,
