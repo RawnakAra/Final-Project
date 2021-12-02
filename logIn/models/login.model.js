@@ -34,12 +34,6 @@ const userSchema = new mongoose.Schema({
         type : Boolean,
         default : false
     },
-    comments:[{
-       comment :{
-           type : mongoose.Schema.Types.ObjectId,
-           ref:'comment'
-       }
-    }],
     tokens: [{
         token: {
             type: String,
@@ -58,8 +52,10 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateAuthToken = async function(){
     const user =this
-    const token = jwt.sign({_id : user._id.toString()},'helonewuser')
+    const token = jwt.sign({_id : user._id.toString()},'helonewuser',{expiresIn : '5h'})
+    console.log(token)
     user.tokens = user.tokens.concat({token})
+    console.log(user.tokens)
     await user.save()
 
     return token
