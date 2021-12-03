@@ -1,13 +1,4 @@
-const type = async (selector, text, page, time = 200) => {
-    try {
-        await page.focus(selector);
-        await page.type(selector, text);
-    }
-    catch (err) {
-        console.log(err)
-    }
 
-}
 
 const click = async (selector, page, time = 200) => {
     try {
@@ -28,5 +19,5 @@ const wait = async (time) => {
 }
 
 module.exports = {
-    type, click, wait
+  click, wait
 }

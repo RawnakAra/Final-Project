@@ -1,5 +1,6 @@
 const openBrowser = require("./open")
 const {wait} = require('./type-click')
+const Recipes = require('./models/recipes.module')
 
 async function main() {
     const { browser, page } = await openBrowser("https://livforcake.com/category/cakes/")
@@ -31,21 +32,39 @@ const getCakeRecipes = async (browser ,page)=>{
 
 const secondFunction = async (link ,page ,browser) => {
     await page.goto(link)
-    console.log('Second function')
-    // await page.waitForSelector('.content-sidebar-wrap')
-    // const jobs = await page.evaluate(() => {
-    //     const allJobs = document.querySelectorAll(".content")
-    //     console.log(allJobs)
-    //     const jobList = [];
-    //     allJobs.forEach((job) => {
-    //         jobList.push(job.getAttribute("href"));
-    //     })
-    //     return jobList
-    // })
+    //console.log('Second function')
+    await page.waitForTimeout(1000)
+    //console.log(await page.url())
+    await getUrlOfPage(page)
+}
 
-    // const recipe = document.querySelectorAll('.divine-featured-image')
-    // console.log(jobs)
-    // await page.click('body > div.site-container > div > div > main > article> header > div > a')
+const getUrlOfPage = async (page) => {
+    await page.waitForSelector(".wprm-recipe-container")
+    const deta = await page.evaluate(()=>{
+        const recipeName = document.querySelector(".wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-left > h2").innerText
+        const ingredients = document.querySelector('.wprm-recipe-container> div > div.wprm-custom-inner > div').innerText
+        const instructions = document.querySelector('.wprm-recipe-container > div > div.wprm-custom-inner > div.wprm-recipe-instructions-container').innerText
+        // const totalTime = document.querySelector('.wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-left > div.wprm-recipe-meta-container.wprm-recipe-times-container.wprm-recipe-details-container.wprm-recipe-details-container-inline.wprm-block-text-normal > div.wprm-recipe-block-container.wprm-recipe-block-container-inline.wprm-block-text-normal.wprm-recipe-time-container.wprm-recipe-total-time-container').innerText
+        const cakeImg = document.querySelector(".wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-right > div.wprm-recipe-image.wprm-block-image-normal > picture > img").src;
+        return {recipeName , ingredients ,instructions ,cakeImg }
+    })
+console.log('www')
+savedata(deta)   
+return deta
+   }
+
+const savedata =async (deta) =>{
+    const recipesMDB = new Recipes({
+        name : deta.recipeName,
+        ingredients : deta.ingredients ,
+        instructions : deta.instructions ,
+        img : deta.cakeImg
+    }) 
+    
+    await recipesMDB.save((err , data) =>{
+       console.log(err);
+       console.log(data);
+    })
 }
 
 main()
