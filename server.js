@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 app.use('/api/user', require('./logIn/router/login.router'))
-app.use('/api/recipes', require('./webData/router/recipes.router'))
+//app.use('/api/recipes', require('./webData/router/recipes.router'))
 
 mongoose.connect(`${process.env.BD_URL}`,{useNewUrlParser: true ,  useUnifiedTopology: true ,useCreateIndex: true},()=>{
     console.log('conected to DB')

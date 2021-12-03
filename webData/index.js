@@ -48,20 +48,27 @@ const getUrlOfPage = async (page) => {
         const cakeImg = document.querySelector(".wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-right > div.wprm-recipe-image.wprm-block-image-normal > picture > img").src;
         return {recipeName , ingredients ,instructions ,cakeImg }
     })
+    const resipesData = await deta
 console.log('www')
-savedata(deta)   
-return deta
-   }
+//await wait(7000)
+await savedata(resipesData)   
+}
 
 const savedata =async (deta) =>{
-    const recipesMDB = new Recipes({
+    // const recipesMDB = new Recipes({
+    //     name : deta.recipeName,
+    //     ingredients : deta.ingredients ,
+    //     instructions : deta.instructions ,
+    //     img : deta.cakeImg
+    // }) 
+    
+    Recipes.create({
         name : deta.recipeName,
         ingredients : deta.ingredients ,
         instructions : deta.instructions ,
         img : deta.cakeImg
-    }) 
-    
-    await recipesMDB.save((err , data) =>{
+    },
+    (err , data) =>{
        console.log(err);
        console.log(data);
     })
