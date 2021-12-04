@@ -49,7 +49,7 @@ const getUrlOfPage = async (page) => {
         return {recipeName , ingredients ,instructions ,cakeImg }
     })
     const resipesData = await deta
-console.log('www')
+console.log(resipesData)
 //await wait(7000)
 await savedata(resipesData)   
 }

@@ -6,11 +6,11 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 
 app.use(cors())
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({limit : '30mb' , extended: true}))
+app.use(bodyParser.json({limit : '30mb' , extended: true}))
 
 app.use('/api/user', require('./logIn/router/login.router'))
-//app.use('/api/recipes', require('./webData/router/recipes.router'))
+app.use('/api/recipes', require('./webData/router/recipes.router'))
 
 mongoose.connect(`${process.env.BD_URL}`,{useNewUrlParser: true ,  useUnifiedTopology: true ,useCreateIndex: true},()=>{
     console.log('conected to DB')

@@ -1,20 +1,20 @@
 const express = require('express')
 const router = express.Router()
-const companyController = require('../controllers/company.controller')
+const recipesCntroller = require('../controller/recipes.controller')
 router.get('/', (req, res) => {
-    companyController.getAllLinks(req, res)
+    recipesCntroller.getAllRecipe(req, res)
 })
 
 router.post('/', (req, res) => {
-    companyController.postANewLink(req, res)
+    recipesCntroller.postANewRecipe(req, res)
 })
 
-router.delete('/delete/:link', (req, res) => {
-    companyController.deleteLink(req, res)
-})
+// router.delete('/delete/:link', (req, res) => {
+//     companyController.deleteLink(req, res)
+// })
 
-router.put('/update/:link', (req, res) => {
-    companyController.updateLink(req, res)
-})
+// router.put('/update/:link', (req, res) => {
+//     companyController.updateLink(req, res)
+// })
 
 module.exports = router
