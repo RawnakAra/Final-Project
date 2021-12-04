@@ -10,6 +10,15 @@ const getAllRecipe = (req, res) => {
   })
 }
 
+const serchForRecipeByName = (req,res)=>{
+  const {recipeName} = req.body
+  recipes.find({recipeName:{$all : recipeName}},(err,data)=>{
+    if (data)
+    return res.status(200).json(data)
+  return res.status(400).json(err)
+  })
+}
+
 const postANewRecipe = (req, res) => {
   let newLink = new recipes(req.body)
   newLink.save((err, data) => {
@@ -18,12 +27,9 @@ const postANewRecipe = (req, res) => {
   })
 }
 
-const serchForRecipeByName = (req,res)=>{
-
-}
 
 module.exports = {
   getAllRecipe,
   postANewRecipe,
-
+  serchForRecipeByName
 }
