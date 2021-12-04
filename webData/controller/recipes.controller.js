@@ -10,12 +10,20 @@ const getAllRecipe = (req, res) => {
   })
 }
 
-const serchForRecipeByName = (req,res)=>{
-  const {recipeName} = req.body
-  recipes.find({recipeName:{$elemMatch : recipeName}},(err,data)=>{
+const searchForRecipeByName = (req, res) => {
+  const { recipeName } = req.body
+  recipes.find({ recipeName: { $regex: `/${recipeName}/` } }, (err, data) => {
     if (data)
-    return res.status(200).json(data)
-  return res.status(400).json(err)
+      return res.status(200).json(data)
+    return res.status(400).json(err)
+  })
+}
+const searchByIngredients = (req, res) => {
+  const { recipeIngredients } = req.body
+  recipes.find({ ingredients: { $all: recipeIngredients } }, (err, data) => {
+    if (data)
+      return res.status(200).json(data)
+    return res.status(400).json(err)
   })
 }
 
@@ -31,5 +39,6 @@ const postANewRecipe = (req, res) => {
 module.exports = {
   getAllRecipe,
   postANewRecipe,
-  serchForRecipeByName
+  searchByIngredients,
+  searchForRecipeByName
 }
