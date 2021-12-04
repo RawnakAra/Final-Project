@@ -12,7 +12,8 @@ const getAllRecipe = (req, res) => {
 
 const searchForRecipeByName = (req, res) => {
   const { recipeName } = req.body
-  recipes.find({ recipeName: { $all: recipeName } }, (err, data) => {
+  recipes.find({}, (err, data) => {
+    console,log(data)
     if (data)
       return res.status(200).json(data)
     return res.status(400).json(err)
@@ -22,8 +23,11 @@ const searchByIngredients = (req, res) => {
   const { recipeIngredients } = req.body
   recipes.find({}, (err, data) => {
     if (data){
-    console.log(data)
-      return res.status(200).json(data)
+      recipeIngredients.map(ingr=>{
+       const result = data.includes(ingr)
+       return res.status(200).json(result)
+      })
+     
     }
     return res.status(400).json(err)
   })
