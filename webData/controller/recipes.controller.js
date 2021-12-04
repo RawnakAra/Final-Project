@@ -20,7 +20,7 @@ const searchForRecipeByName = (req, res) => {
 }
 const searchByIngredients = (req, res) => {
   const { recipeIngredients } = req.body
-  recipes.find({ ingredients: { $all: recipeIngredients } }, (err, data) => {
+  recipes.find({ ingredients: { $all:{$regex: /recipeIngredients/} } }, (err, data) => {
     if (data)
       return res.status(200).json(data)
     return res.status(400).json(err)
