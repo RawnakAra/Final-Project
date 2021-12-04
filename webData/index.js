@@ -40,17 +40,16 @@ const secondFunction = async (link ,page ,browser) => {
 const resipesData = []
 const getUrlOfPage = async (page) => {
     await page.waitForSelector(".wprm-recipe-container")
+    const url = page.url()
     const deta = await page.evaluate(()=>{
         const recipeName = document.querySelector(".wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-left > h2").innerText
         const ingredients = document.querySelector('.wprm-recipe-container> div > div.wprm-custom-inner > div').innerText
-        const instructions = document.querySelector('.wprm-recipe-container > div > div.wprm-custom-inner > div.wprm-recipe-instructions-container').innerText
-        // const totalTime = document.querySelector('.wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-left > div.wprm-recipe-meta-container.wprm-recipe-times-container.wprm-recipe-details-container.wprm-recipe-details-container-inline.wprm-block-text-normal > div.wprm-recipe-block-container.wprm-recipe-block-container-inline.wprm-block-text-normal.wprm-recipe-time-container.wprm-recipe-total-time-container').innerText
         const cakeImg = document.querySelector(".wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-right > div.wprm-recipe-image.wprm-block-image-normal > picture > img").src;
-        return {recipeName , ingredients ,instructions ,cakeImg }
+        return {recipeName , ingredients  ,cakeImg }
     })
     resipesData.push(deta)
-console.log(resipesData)
-return resipesData
+console.log(resipesData ,url)
+return {resipesData ,url}
 //await wait(7000)
 //await savedata(resipesData)   
 }
