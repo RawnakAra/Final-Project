@@ -21,6 +21,6 @@ const recipeSchema = new mongoose.Schema({
   }
 })
 
-const recipes = mongoose.model('FinalProg' , recipeSchema)
+const recipes = mongoose.model('recipes' , recipeSchema)
 
 module.exports = recipes
