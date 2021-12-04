@@ -37,7 +37,7 @@ const secondFunction = async (link ,page ,browser) => {
     //console.log(await page.url())
     await getUrlOfPage(page)
 }
-
+const resipesData = []
 const getUrlOfPage = async (page) => {
     await page.waitForSelector(".wprm-recipe-container")
     const deta = await page.evaluate(()=>{
@@ -48,8 +48,9 @@ const getUrlOfPage = async (page) => {
         const cakeImg = document.querySelector(".wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-right > div.wprm-recipe-image.wprm-block-image-normal > picture > img").src;
         return {recipeName , ingredients ,instructions ,cakeImg }
     })
-    const resipesData = await deta
+    resipesData.push(deta)
 console.log(resipesData)
+return resipesData
 //await wait(7000)
 //await savedata(resipesData)   
 }
@@ -68,4 +69,4 @@ const savedata =async (deta) =>{
     })
 }
 
-main()
+module.exports= main

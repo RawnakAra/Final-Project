@@ -1,6 +1,11 @@
 const recipes = require('../models/recipes.module')
+const getDataFunc = require('../index')
+const data = getDataFunc()
 
 const getAllRecipe = (req, res) => {
+  (data.map(rese=>{
+    console.log("data", rese)
+  }))
   recipes.find({}, (err, data) => {
     if (data)
       return res.status(200).json(data)
