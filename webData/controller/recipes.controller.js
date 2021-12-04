@@ -12,7 +12,7 @@ const getAllRecipe = (req, res) => {
 
 const serchForRecipeByName = (req,res)=>{
   const {recipeName} = req.body
-  recipes.find({recipeName:{$all : recipeName}},(err,data)=>{
+  recipes.find({recipeName:{$elemMatch : recipeName}},(err,data)=>{
     if (data)
     return res.status(200).json(data)
   return res.status(400).json(err)
