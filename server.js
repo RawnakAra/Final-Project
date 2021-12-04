@@ -1,13 +1,13 @@
 const express = require('express')
 const cors = require('cors')
-const app = express()
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 require('dotenv').config()
+const app = express()
 
 app.use(cors())
-app.use(bodyParser.urlencoded({limit : '30mb' , extended: true}))
-app.use(bodyParser.json({limit : '30mb' , extended: true}))
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
 
 app.use('/api/user', require('./logIn/router/login.router'))
 app.use('/api/recipes', require('./webData/router/recipes.router'))

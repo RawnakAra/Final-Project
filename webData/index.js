@@ -51,19 +51,13 @@ const getUrlOfPage = async (page) => {
     const resipesData = await deta
 console.log(resipesData)
 //await wait(7000)
-await savedata(resipesData)   
+//await savedata(resipesData)   
 }
 
 const savedata =async (deta) =>{
-    // const recipesMDB = new Recipes({
-    //     name : deta.recipeName,
-    //     ingredients : deta.ingredients ,
-    //     instructions : deta.instructions ,
-    //     img : deta.cakeImg
-    // }) 
     
     Recipes.create({
-        name : deta.recipeName,
+        recipeName : deta.recipeName,
         ingredients : deta.ingredients ,
         instructions : deta.instructions ,
         img : deta.cakeImg
