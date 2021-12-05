@@ -11,23 +11,35 @@ const getAllRecipe = (req, res) => {
 }
 
 const searchForRecipeByName = (req, res) => {
-  const { recipeName } = req.body
+  const { recipeNameToSearch } = req.body
   recipes.find({}, (err, data) => {
-    console,log(data)
-    if (data)
-      return res.status(200).json(data)
+    if (err)
     return res.status(400).json(err)
+    if(data){
+     const searchedData = ( data.filter(r=> r.recipeName.toString().toLowerCase().includes(recipeNameToSearch.trim().toLowerCase())))
+     return res.status(200).send(searchedData)
+    }
   })
 }
+
 const searchByIngredients = (req, res) => {
   const { recipeIngredients } = req.body
   recipes.find({}, (err, data) => {
+    //console.log(data)
     if (data){
-      recipeIngredients.map(ingr=>{
-       const result = data.includes(ingr)
-       return res.status(200).json(result)
-      })
-     
+     const searchData = data.filter(recipe=>{
+        let isTrue = 0
+       recipeIngredients.map(ingredient =>{
+        // console.log(isTrue)
+         if(recipe.ingredients.toString().toLowerCase().includes(ingredient.toString().toLowerCase())) 
+          return isTrue += 1
+        })
+        if(isTrue === recipeIngredients.length) {
+          return recipe
+       }
+    })  
+   // console.log(searchData)
+    return res.status(200).send(searchData)
     }
     return res.status(400).json(err)
   })
@@ -40,6 +52,7 @@ const postANewRecipe = (req, res) => {
     return res.status(200).send(data)
   })
 }
+
 
 
 module.exports = {
