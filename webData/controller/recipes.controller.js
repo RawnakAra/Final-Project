@@ -1,6 +1,4 @@
 const recipes = require('../models/recipes.module')
-const getDataFunc = require('../index')
-//const data = getDataFunc()
 
 const getAllRecipe = (req, res) => {
   recipes.find({}, (err, data) => {

@@ -52,15 +52,16 @@ const getUrlOfPage = async (page) => {
 console.log(resipesData ,url)
 return {resipesData ,url}
 //await wait(7000)
-//await savedata(resipesData)   
+await savedata(resipesData)   
 }
 
 const savedata =async (deta) =>{
     
-    Recipes.create({
+await Recipes.create({
         recipeName : deta.recipeName,
         ingredients : deta.ingredients ,
         instructions : deta.instructions ,
+        url : deta.url,
         img : deta.cakeImg
     },
     (err , data) =>{
@@ -68,5 +69,5 @@ const savedata =async (deta) =>{
        console.log(data);
     })
 }
+main()
 
-module.exports= main

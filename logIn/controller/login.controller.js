@@ -10,21 +10,14 @@ const getAllUsers = (req,res)=>{
 }
 
 const register =async (req,res)=>{
-    console.log('1')
    const newUser = new user(req.body)
    console.log(newUser)
    try{
-    console.log('3')
        await newUser.save()
-       console.log('4')
        const token = await newUser.generateAuthToken()
-       console.log('5')
        res.status(200).send({newUser ,token})
-       console.log('6')
    }catch(e){
-    console.log('7')
        res.status(500).send(e.message)
-       console.log('8')
    }
 }
 
