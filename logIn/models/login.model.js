@@ -41,13 +41,6 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
-// userSchema.methods.pubicProfile = async function (){
-//     const user = this
-//     const userObject = user.toObject()
-//      delete userObject.password
-//      delete userObject.tokens
-//     return userObject
-// }
 
 userSchema.methods.generateAuthToken = async function(){
     const user =this
@@ -61,13 +54,19 @@ userSchema.methods.generateAuthToken = async function(){
 } 
 
 userSchema.statics.findByCredentials = async (email,password) => {
-    const userlog = await user.findOne({email})
+    console.log(userModel)
+    console.log(email)
+    console.log(password)
+    const userlog = await userModel.findOne({email})
+    console.log("userlog",userlog)
     if(!userlog){
+        console.log('!user')
         throw new Error('Unable to login')
     }
     const isMatch = await bcrypt.compare(password ,userlog.password)
+    console.log(isMatch)
     if(!isMatch){
-      
+      console.log('!match')
         throw new Error('Unable to login')
     }
     return userlog
@@ -84,6 +83,7 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
-const user = mongoose.model('user', userSchema)
 
-module.exports = user; 
+
+const userModel = mongoose.model('user', userSchema)
+module.exports = userModel; 

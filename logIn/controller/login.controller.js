@@ -23,10 +23,14 @@ const register =async (req,res)=>{
 
 const logIn =async (req,res)=>{
   try{
+      console.log('dd')
       const userlog = await user.findByCredentials(req.body.email,req.body.password);
+      console.log(userlog)
       const token = await userlog.generateAuthToken();
+      console.log(token)
       res.status(200).json({userlog  ,token})
   }catch(e){
+      console.log(e)
       res.status(404).send(e.message)
   }
 }
