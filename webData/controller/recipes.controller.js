@@ -19,7 +19,11 @@ const searchForRecipeByName = async (req, res) => {
       if (err)
         return res.status(400).json(err)
       if (data) {
-        const searchedData = (data.filter(r => r.recipeName.toString().toLowerCase().includes(recipeNameToSearch.toLowerCase())))
+        const searchedData = (data.filter(r =>{
+          const searching = recipeNameToSearch.toLowerCase() 
+        return r.recipeName.toString().toLowerCase().includes(searching)
+        })
+        )
         return res.status(200).send(searchedData)
       }
     })
