@@ -3,7 +3,6 @@ const recipes = require('../models/recipes.module')
 const getAllRecipe =async (req, res) => {
  try{
     recipes.find({}, (err, data) => {
-      console.log(data)
     if (data)
       return res.status(200).json(data)
     return res.status(400).json(err)
@@ -57,7 +56,8 @@ const searchByIngredients =async (req, res) => {
 }
 
 const postANewRecipe =async (req, res) => {
- try{ let newLink = new recipes(req.body)
+  let newLink = new recipes(req.body)
+ try{ 
   newLink.save((err, data) => {
     if (err) return res.status(404).send(err)
     return res.status(200).send(data)
