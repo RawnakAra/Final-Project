@@ -1,7 +1,9 @@
 const recipes = require('../models/recipes.module')
 
 const getAllRecipe =async (req, res) => {
- try{ recipes.find({}, (err, data) => {
+ try{
+    recipes.find({}, (err, data) => {
+      console.log(data)
     if (data)
       return res.status(200).json(data)
     return res.status(400).json(err)
@@ -12,7 +14,8 @@ const getAllRecipe =async (req, res) => {
 }
 
 const searchForRecipeByName =async (req, res) => {
- try{ const { recipeNameToSearch } = req.body
+  const { recipeNameToSearch } = req.body
+  try{ 
   recipes.find({}, (err, data) => {
     if (err)
     return res.status(400).json(err)
@@ -27,7 +30,8 @@ const searchForRecipeByName =async (req, res) => {
 }
 
 const searchByIngredients =async (req, res) => {
- try{ const { recipeIngredients } = req.body
+  const { recipeIngredients } = req.body
+ try{
   recipes.find({}, (err, data) => {
     //console.log(data)
     if (data){
