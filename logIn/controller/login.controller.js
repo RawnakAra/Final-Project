@@ -59,7 +59,7 @@ const logOutAll = async(req,res)=>{
 }
 
 const deleteUser = async(req,res)=>{
-    const id = req.user._id
+    const id = req.params
     user.findByIdAndDelete(id,(err ,data)=>{
         if(err) return res.status(400).send(err.message)
         return res.status(200).send(data)  
