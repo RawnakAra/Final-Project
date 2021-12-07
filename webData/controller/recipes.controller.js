@@ -32,31 +32,32 @@ const searchForRecipeByName = async (req, res) => {
   }
 }
 
-const searchByIngredients = async (req, res) => {
+
+const searchByIngredients = (req, res) => {
+  try{
   const { recipeIngredients } = req.body
-  try {
-    recipeModel.find({}, (err, data) => {
-      //console.log(data)
-      if (data) {
-        const searchData = data.filter(recipe => {
-          let isTrue = 0
-          recipeIngredients.map(ingredient => {
-            // console.log(isTrue)
-            if (recipe.ingredients.toString().toLowerCase().includes(ingredient.toString().toLowerCase()))
-              return isTrue += 1
-          })
-          if (isTrue === recipeIngredients.length) {
-            return recipe
-          }
+ // console.log(recipeIngredients)
+  recipeModel.find({}, (err, data) => {
+    if (data){
+     const searchData = data.filter(recipe=>{
+        let isTrue = 0
+       recipeIngredients.map(ingredient =>{
+         console.log(isTrue)
+         if(recipe.ingredients.toString().toLowerCase().includes(ingredient.toString().toLowerCase())) 
+          return isTrue += 1
         })
-        // console.log(searchData)
-        return res.status(200).send(searchData)
-      }
-      return res.status(400).json(err)
-    })
-  } catch (e) {
-    res.status(503).send(e.massege)
-  }
+        if(isTrue === recipeIngredients.length) {
+          return recipe
+        }
+    })  
+    //console.log(searchData)
+    return res.status(200).send(searchData)
+    }
+    return res.status(400).json(err)
+  })
+}catch(e){
+  return res.status(500).send(e.massege)
+}
 }
 
 const postANewRecipe = async (req, res) => {
