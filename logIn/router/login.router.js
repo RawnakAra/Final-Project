@@ -10,9 +10,9 @@ router.get('/',(req,res)=>{
     userData.register(req,res)
 }).post('/user/login',(req,res)=>{
     userData.logIn(req,res)
-}).post('/user/logout',auth ,async(req,res)=>{
+}).get('/user/logout',auth ,async(req,res)=>{
    await userData.logOut(req,res)
-}).post('/user/logoutAll',auth , async(req,res)=>{
+}).get('/user/logoutAll',auth , async(req,res)=>{
     await userData.logOutAll(req,res)
 }).delete('/delete',auth , async(req,res)=>{
     await userData.deleteUser(req,res)
