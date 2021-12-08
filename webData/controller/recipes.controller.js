@@ -42,7 +42,7 @@ const searchByIngredients = (req, res) => {
      const searchData = data.filter(recipe=>{
         let isTrue = 0
        recipeIngredients.map(ingredient =>{
-         console.log(isTrue)
+        // console.log(isTrue)
          if(recipe.ingredients.toString().toLowerCase().includes(ingredient.toString().toLowerCase())) 
           return isTrue += 1
         })

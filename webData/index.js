@@ -5,7 +5,8 @@ const recipeModel = require('./models/recipes.module').recipeModel
 
 async function main() {
     try {
-        const { browser, page } = await openBrowser("https://livforcake.com/category/cakes/")
+        // https://livforcake.com/category/cakes/page/2/
+        const { browser, page } = await openBrowser("https://livforcake.com/category/cakes/page/2/")
         await page.waitForTimeout(1000)
         await getCakeRecipes(browser, page);
     } catch (e) {
