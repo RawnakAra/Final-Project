@@ -5,9 +5,6 @@ const recipeSchema = new mongoose.Schema({
       type: String,
       require : true
   },
-  // totalTime : {
-  //     type : String
-  // },
   ingredients : {
       type : String,
       require : true
@@ -21,7 +18,7 @@ const recipeSchema = new mongoose.Schema({
     require : true
   },
   img:{
-    filePath : String
+    type : String
   },
   like :{
     try:Number,
