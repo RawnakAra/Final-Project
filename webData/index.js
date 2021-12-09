@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const openBrowser = require("./open")
 const { wait } = require('./type-click')
 const recipeModel = require('./models/recipes.module').recipeModel
-
+require('dotenv').config()
 async function main() {
     try {
         // https://livforcake.com/category/cakes/page/2/
@@ -71,7 +71,7 @@ const savedata = (deta) => {
         console.log(data)
     })
 }
-mongoose.connect(`mongodb+srv://RawnakAraidy:Rawnak1996@cluster0.tnif8.mongodb.net/FinalProg?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, () => {
+mongoose.connect(`${process.env.BD_URL}`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, () => {
     console.log('conected to DB')
 })
 main()

@@ -63,7 +63,7 @@ const searchByIngredients = (req, res) => {
 const postANewRecipe = async (req, res) => {
   let newLink = new recipes(req.body)
   try {
-    recipeModel.save((err, data) => {
+    newLink.save((err, data) => {
       if (err) return res.status(404).send(err)
       return res.status(200).send(data)
     })
@@ -73,10 +73,30 @@ const postANewRecipe = async (req, res) => {
 }
 
 
+const updateData =async (req,res)=>{
+  const { id } = req.params
+  let likestoUpdate = req.body
+  try{
+    recipeModel.findById(id,(err ,data )=>{
+      console.log(data.like)
+      console.log(likestoUpdate)
+      recipeModel.findByIdAndUpdate(id,{like : likestoUpdate.like},{runValidators : true , new : true},(err,data1)=>{
+        console.log(data1)
+        if(err)
+        return res.status(400).send(e.massege)
+        return res.status(200).send(data1)
+      })
+    })
+  }catch(e){
+    res.status(503).send(e.massege)
+  }
+  
+}
 
 module.exports = {
   getAllRecipe,
   postANewRecipe,
   searchByIngredients,
-  searchForRecipeByName
+  searchForRecipeByName,
+  updateData
 }
