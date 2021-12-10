@@ -1,4 +1,5 @@
 const recipeModel = require('../models/recipes.module').recipeModel
+const recipeNewModel=require('../models/recipeNew.mogul').recipeNewModel
 
 const getAllRecipe = async (req, res) => {
   try {
@@ -11,6 +12,19 @@ const getAllRecipe = async (req, res) => {
     res.status(503).send(e.massege)
   }
 }
+
+const getAllNewRecipe = async (req, res)=>{
+  try {
+    recipeNewModel.find({}, (err, data) => {
+      if (data)
+        return res.status(200).json(data)
+      return res.status(400).json(err)
+    })
+  } catch (e) {
+    res.status(503).send(e.massege)
+  }
+}
+
 
 const searchForRecipeByName = async (req, res) => {
   const { recipeNameToSearch } = req.body
@@ -95,6 +109,7 @@ const updateData =async (req,res)=>{
 
 module.exports = {
   getAllRecipe,
+  getAllNewRecipe,
   postANewRecipe,
   searchByIngredients,
   searchForRecipeByName,

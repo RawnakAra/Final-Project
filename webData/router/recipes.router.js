@@ -4,7 +4,9 @@ const recipesCntroller = require('../controller/recipes.controller')
 
 router.get('/', async(req, res)=> {
    await recipesCntroller.getAllRecipe(req, res)
-}).post('/searchbyname',async(req,res)=>{
+}).get('/new', async(req, res)=> {
+    await recipesCntroller.getAllNewRecipe(req, res)
+ }).post('/searchbyname',async(req,res)=>{
     await recipesCntroller.searchForRecipeByName(req,res)
 }).post('/searchbyingredients' ,async(req,res)=>{
     await recipesCntroller.searchByIngredients(req,res)

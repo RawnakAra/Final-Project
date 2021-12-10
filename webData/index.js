@@ -6,7 +6,7 @@ require('dotenv').config()
 async function main() {
     try {
         // https://livforcake.com/category/cakes/page/2/
-        const { browser, page } = await openBrowser("https://livforcake.com/category/cakes/page/2/")
+        const { browser, page } = await openBrowser("https://livforcake.com/category/cakes/")
         await page.waitForTimeout(1000)
         await getCakeRecipes(browser, page);
     } catch (e) {
@@ -48,13 +48,15 @@ const getUrlOfPage = async (page) => {
     const url = page.url()
     const deta = await page.evaluate(() => {
         const recipeName = document.querySelector(".wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-left > h2").innerText
-        const ingredients = document.querySelector('.wprm-recipe-container> div > div.wprm-custom-inner > div').innerHTML
-        const instructions = document.querySelector(".wprm-recipe-container > div > div.wprm-custom-inner > div.wprm-recipe-instructions-container").innerHTML
+        const ingredients = document.querySelector('.wprm-recipe-container> div > div.wprm-custom-inner > div').innerText
+        const instructions = document.querySelector(".wprm-recipe-container > div > div.wprm-custom-inner > div.wprm-recipe-instructions-container").innerText
         const cakeImg = document.querySelector(".wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-right > div.wprm-recipe-image.wprm-block-image-normal > picture > img").src;
         return { recipeName, ingredients, cakeImg, instructions }
     })
+    
     savedata({...deta,url})
 }
+
 
 const savedata = (deta) => {
 
