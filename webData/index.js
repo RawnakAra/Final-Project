@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const openBrowser = require("./open")
 const { wait } = require('./type-click')
-const recipeModel = require('./models/recipes.module').recipeModel
+const recipeNewModel=require('../webData/models/recipeNew.modul').recipeNewModel
 require('dotenv').config()
+
 async function main() {
     try {
         // https://livforcake.com/category/cakes/page/2/
@@ -48,19 +49,19 @@ const getUrlOfPage = async (page) => {
     const url = page.url()
     const deta = await page.evaluate(() => {
         const recipeName = document.querySelector(".wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-left > h2").innerText
-        const ingredients = document.querySelector('.wprm-recipe-container> div > div.wprm-custom-inner > div').innerText
-        const instructions = document.querySelector(".wprm-recipe-container > div > div.wprm-custom-inner > div.wprm-recipe-instructions-container").innerText
+        const ingredients = document.querySelector('.wprm-recipe-container> div > div.wprm-custom-inner > div').innerText.replaceAll('\n',"--")
+        const instructions = document.querySelector(".wprm-recipe-container > div > div.wprm-custom-inner > div.wprm-recipe-instructions-container").innerText.replaceAll('\n',"--")
         const cakeImg = document.querySelector(".wprm-recipe-container > div > div.wprm-col-flex > div.wprm-container-float-right > div.wprm-recipe-image.wprm-block-image-normal > picture > img").src;
         return { recipeName, ingredients, cakeImg, instructions }
     })
-    
+ 
     savedata({...deta,url})
 }
 
 
 const savedata = (deta) => {
 
-    const post = new recipeModel({
+    const post = new recipeNewModel({
         recipeName: deta.recipeName,
         ingredients: deta.ingredients,
         instructions: deta.instructions,

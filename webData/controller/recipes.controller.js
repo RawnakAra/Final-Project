@@ -1,5 +1,5 @@
 const recipeModel = require('../models/recipes.module').recipeModel
-const recipeNewModel=require('../models/recipeNew.mogul').recipeNewModel
+const recipeNewModel=require('../models/recipeNew.modul').recipeNewModel
 
 const getAllRecipe = async (req, res) => {
   try {
