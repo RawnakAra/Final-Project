@@ -16,6 +16,9 @@ router.get('/', async(req, res)=> {
 }).put('/update/:id',async(req,res)=>{
     await recipesCntroller.updateData(req,res)
 })
+// .post('/upload/:id/img',async(req,res)=>{
+//     await recipesCntroller.uploadImage(req,res)
+// })
 // const upload = multer({
 //     dest :'images',
 //     limits:{

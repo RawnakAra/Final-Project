@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const recipeSchema = new mongoose.Schema({
+const easyDessertSchema = new mongoose.Schema({
   recipeName : {
       type: String,
       require : true
@@ -13,12 +13,8 @@ const recipeSchema = new mongoose.Schema({
     type : String,
     require : true
 },
- url:{
-    type : String,
-    require : true
-  },
   img:{
-    type : Buffer
+    type : String
   },
   like :{
     try:Number,
@@ -26,8 +22,8 @@ const recipeSchema = new mongoose.Schema({
   }
 })
 
-const recipeModel = mongoose.model('recipes' ,recipeSchema)
+const easydessert = mongoose.model('easyDessert' ,easyDessertSchema)
 
 module.exports = {
-  recipeModel
-}
+    easydessert 
+  }

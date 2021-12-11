@@ -1,9 +1,8 @@
-const recipeModel = require('../models/recipes.module').recipeModel
-const recipeNewModel=require('../models/recipeNew.modul').recipeNewModel
+const easydessert=require('../module/easy.dessert.module').easydessert
 
 const getAllRecipe = async (req, res) => {
   try {
-    recipeNewModel.find({}, (err, data) => {
+    easydessert.find({}, (err, data) => {
       if (data)
         return res.status(200).json(data)
       return res.status(400).json(err)
@@ -15,7 +14,7 @@ const getAllRecipe = async (req, res) => {
 
 const getAllNewRecipe = async (req, res)=>{
   try {
-    recipeNewModel.find({}, (err, data) => {
+    easydessert.find({}, (err, data) => {
       if (data)
         return res.status(200).json(data)
       return res.status(400).json(err)
@@ -28,8 +27,9 @@ const getAllNewRecipe = async (req, res)=>{
 
 const searchForRecipeByName = async (req, res) => {
   const { recipeNameToSearch } = req.body
+  console.log(recipeNameToSearch)
   try {
-    recipeNewModel.find({}, (err, data) => {
+    easydessert.find({}, (err, data) => {
       if (err)
         return res.status(400).json(err)
       if (data) {
@@ -51,7 +51,7 @@ const searchByIngredients = (req, res) => {
   try{
   const { recipeIngredients } = req.body
  // console.log(recipeIngredients)
- recipeNewModel.find({}, (err, data) => {
+ easydessert.find({}, (err, data) => {
     if (data){
      const searchData = data.filter(recipe=>{
         let isTrue = 0
@@ -75,7 +75,7 @@ const searchByIngredients = (req, res) => {
 }
 
 const postANewRecipe = async (req, res) => {
-  let newLink = new recipeNewModel(req.body)
+  let newLink = new easydessert(req.body)
   try {
     newLink.save((err, data) => {
       if (err) return res.status(404).send(err)
@@ -91,10 +91,10 @@ const updateData =async (req,res)=>{
   const { id } = req.params
   let likestoUpdate = req.body
   try{
-   recipeNewModel.findById(id,(err ,data )=>{
+   easydessert.findById(id,(err ,data )=>{
       //console.log(data.like)
      // console.log(likestoUpdate)
-     recipeNewModel.findByIdAndUpdate(id,{like : likestoUpdate.like},{runValidators : true , new : true},(err,data1)=>{
+     easydessert.findByIdAndUpdate(id,{like : likestoUpdate.like},{runValidators : true , new : true},(err,data1)=>{
         console.log(data1)
         if(err)
         return res.status(400).send(e.massege)
