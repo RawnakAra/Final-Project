@@ -75,7 +75,7 @@ const searchByIngredients = (req, res) => {
 }
 
 const postANewRecipe = async (req, res) => {
-  let newLink = new recipeModel(req.body)
+  let newLink = new recipeNewModel(req.body)
   try {
     newLink.save((err, data) => {
       if (err) return res.status(404).send(err)
