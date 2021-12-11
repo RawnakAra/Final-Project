@@ -3,7 +3,7 @@ const recipeNewModel=require('../models/recipeNew.modul').recipeNewModel
 
 const getAllRecipe = async (req, res) => {
   try {
-    recipeModel.find({}, (err, data) => {
+    recipeNewModel.find({}, (err, data) => {
       if (data)
         return res.status(200).json(data)
       return res.status(400).json(err)
@@ -29,7 +29,7 @@ const getAllNewRecipe = async (req, res)=>{
 const searchForRecipeByName = async (req, res) => {
   const { recipeNameToSearch } = req.body
   try {
-    recipeModel.find({}, (err, data) => {
+    recipeNewModel.find({}, (err, data) => {
       if (err)
         return res.status(400).json(err)
       if (data) {
@@ -51,7 +51,7 @@ const searchByIngredients = (req, res) => {
   try{
   const { recipeIngredients } = req.body
  // console.log(recipeIngredients)
-  recipeModel.find({}, (err, data) => {
+ recipeNewModel.find({}, (err, data) => {
     if (data){
      const searchData = data.filter(recipe=>{
         let isTrue = 0
@@ -91,10 +91,10 @@ const updateData =async (req,res)=>{
   const { id } = req.params
   let likestoUpdate = req.body
   try{
-    recipeModel.findById(id,(err ,data )=>{
+   recipeNewModel.findById(id,(err ,data )=>{
       console.log(data.like)
       console.log(likestoUpdate)
-      recipeModel.findByIdAndUpdate(id,{like : likestoUpdate.like},{runValidators : true , new : true},(err,data1)=>{
+     recipeNewModel.findByIdAndUpdate(id,{like : likestoUpdate.like},{runValidators : true , new : true},(err,data1)=>{
         console.log(data1)
         if(err)
         return res.status(400).send(e.massege)
