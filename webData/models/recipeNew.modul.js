@@ -18,7 +18,7 @@ const recipeSchema = new mongoose.Schema({
     require : true
   },
   img:{
-    filePath : String
+    type : String
   },
   like :{
     try:Number,
