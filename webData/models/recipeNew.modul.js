@@ -18,7 +18,8 @@ const recipeSchema = new mongoose.Schema({
     require : true
   },
   img:{
-    type : Buffer
+    type : String
+    // type : Buffer
   },
   like :{
     type :Number,
