@@ -18,10 +18,10 @@ const recipeSchema = new mongoose.Schema({
     require : true
   },
   img:{
-    type : String
+    type : Buffer
   },
   like :{
-    try:Number,
+    type :Number,
     default:0
   }
 })

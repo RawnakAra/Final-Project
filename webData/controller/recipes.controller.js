@@ -75,14 +75,17 @@ const searchByIngredients = (req, res) => {
 }
 
 const postANewRecipe = async (req, res) => {
-  let newLink = new recipeNewModel(req.body)
+  console.log("req.file",req.file)
+  console.log("req.recipeName",req.body.recipeName)
+  
+  let newLink = new recipeNewModel({recipeName: req.body.recipeName, ingredients: req.body.ingredients, instructions:req.body.instructions, img: req.file.buffer })
   try {
     newLink.save((err, data) => {
       if (err) return res.status(404).send(err)
       return res.status(200).send(data)
     })
   } catch (e) {
-    res.status(503).send(e.massege)
+    res.status(503).send(e.message)
   }
 }
 
@@ -97,30 +100,15 @@ const updateData =async (req,res)=>{
      recipeNewModel.findByIdAndUpdate(id,{like : likestoUpdate.like},{runValidators : true , new : true},(err,data1)=>{
         console.log(data1)
         if(err)
-        return res.status(400).send(e.massege)
+        return res.status(400).send(e.message)
         return res.status(200).send(data1)
       })
     })
   }catch(e){
-    res.status(503).send(e.massege)
+    res.status(503).send(e.message)
   }
   
 }
-
-// const uploadImage =(req,res)=>{
-//   try {
-//     const recipe = await recipeModel.findById(req.params.id)
-
-//     if (!user || !user.avatar) {
-//         throw new Error()
-//     }
-
-//     res.set('Content-Type', 'image/png')
-//     res.send(user.avatar)
-// } catch (e) {
-//     res.status(404).send()
-// }
-// }
 
 module.exports = {
   getAllRecipe,
