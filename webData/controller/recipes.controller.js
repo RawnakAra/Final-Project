@@ -78,7 +78,7 @@ const postANewRecipe = async (req, res) => {
   console.log("req.file",req.file)
   console.log("req.recipeName",req.body.recipeName)
   
-  let newLink = new recipeNewModel({recipeName: req.body.recipeName, ingredients: req.body.ingredients, instructions:req.body.instructions, img: req.file.buffer })
+  let newLink = new recipeModel({recipeName: req.body.recipeName, ingredients: req.body.ingredients, instructions:req.body.instructions, img: req.file.buffer })
   try {
     newLink.save((err, data) => {
       if (err) return res.status(404).send(err)
